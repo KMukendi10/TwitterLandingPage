@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakeTwitter — Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Bootstrap Icons (only external link needed) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+<body>
+
+  <!-- =====================================================
+       MOBILE TOP BAR (visible < 700px)
+  ====================================================== -->
+  <div class="mobile-topbar">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24'%3E%3Cpath fill='%231d9bf0' d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E"
+         alt="FakeTwitter logo" class="mobile-logo" />
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='18' fill='%231d9bf0'/%3E%3Ccircle cx='18' cy='14' r='6' fill='white'/%3E%3Cellipse cx='18' cy='30' rx='10' ry='8' fill='white'/%3E%3C/svg%3E"
+         alt="Your avatar" class="mobile-avatar" />
+  </div>
+
+  <!-- =====================================================
+       PAGE WRAPPER
+  ====================================================== -->
+  <div class="page-wrap">
+
+    <!-- =====================================================
+         LEFT SIDEBAR — Navigation
+    ====================================================== -->
+    <aside class="sidebar-left" aria-label="Main navigation">
+
+      <!-- Logo -->
+      <a href="#" class="nav-logo" aria-label="FakeTwitter home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24'%3E%3Cpath fill='%231d9bf0' d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E"
+             alt="FakeTwitter" />
+      </a>
+
+      <!-- Nav links -->
+      <nav class="sidebar-nav" aria-label="Primary">
+        <a href="#" class="nav-item active" aria-current="page">
+          <i class="bi bi-house-door-fill nav-icon"></i>
+          <span class="nav-label">Home</span>
+        </a>
+        <a href="explore.html" class="nav-item">
+          <i class="bi bi-search nav-icon"></i>
+          <span class="nav-label">Explore</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="bi bi-bell nav-icon"></i>
+          <span class="nav-label">Notifications</span>
+          <span class="nav-badge">3</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="bi bi-envelope nav-icon"></i>
+          <span class="nav-label">Messages</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="bi bi-bookmark nav-icon"></i>
+          <span class="nav-label">Bookmarks</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="bi bi-people nav-icon"></i>
+          <span class="nav-label">Communities</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="bi bi-person nav-icon"></i>
+          <span class="nav-label">Profile</span>
+        </a>
+        <!-- Dark mode toggle — CUSTOM FEATURE (no Cursor) -->
+        <button class="nav-item nav-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+          <i class="bi bi-moon nav-icon" id="themeIcon"></i>
+          <span class="nav-label" id="themeLabel">Dark mode</span>
+        </button>
+        <a href="#" class="nav-item">
+          <i class="bi bi-three-dots-circle nav-icon"></i>
+          <span class="nav-label">More</span>
+        </a>
+
+        <!-- Post / Tweet button -->
+        <button class="btn-tweet" id="openTweetModal" aria-haspopup="dialog">
+          <span class="btn-tweet-full">Post</span>
+          <i class="bi bi-feather btn-tweet-icon" aria-hidden="true"></i>
+        </button>
+      </nav>
+
+      <!-- Profile mini card -->
+      <div class="profile-mini">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231d9bf0'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+             alt="Your profile" class="profile-mini-avatar" />
+        <div class="profile-mini-info">
+          <span class="profile-mini-name">Kazadi Mukendi</span>
+          <span class="profile-mini-handle">@kazadi_dev</span>
+        </div>
+        <i class="bi bi-three-dots profile-mini-more" aria-hidden="true"></i>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         MAIN FEED
+    ====================================================== -->
+    <main class="feed-col" aria-label="Timeline feed">
+
+      <!-- Feed header -->
+      <div class="feed-header">
+        <div class="feed-tabs">
+          <button class="feed-tab active" aria-pressed="true">For you</button>
+          <button class="feed-tab" aria-pressed="false">Following</button>
+        </div>
+      </div>
+
+      <!-- ===== TWEET COMPOSE BOX ===== -->
+      <div class="compose-box" role="form" aria-label="Compose a post">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231d9bf0'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+             alt="Your avatar" class="compose-avatar" />
+        <div class="compose-right">
+          <div class="compose-audience">
+            <button class="audience-btn">
+              <i class="bi bi-globe2"></i> Everyone <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+          <textarea class="compose-input" id="composeInput" placeholder="What is happening?!"
+                    aria-label="Compose your post" maxlength="280" rows="1"></textarea>
+          <div class="compose-toolbar">
+            <div class="compose-tools">
+              <button class="tool-btn" aria-label="Add image"><i class="bi bi-image"></i></button>
+              <button class="tool-btn" aria-label="Add GIF"><i class="bi bi-file-gif"></i></button>
+              <button class="tool-btn" aria-label="Add poll"><i class="bi bi-bar-chart"></i></button>
+              <button class="tool-btn" aria-label="Add emoji"><i class="bi bi-emoji-smile"></i></button>
+              <button class="tool-btn" aria-label="Schedule post"><i class="bi bi-calendar3"></i></button>
+              <button class="tool-btn" aria-label="Add location"><i class="bi bi-geo-alt"></i></button>
+            </div>
+            <div class="compose-right-tools">
+              <span class="char-counter" id="charCounter">280</span>
+              <div class="compose-divider" aria-hidden="true"></div>
+              <button class="btn-post" id="postBtn" disabled aria-label="Post your tweet">Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TWEET FEED ===== -->
+      <div class="feed-list" role="feed" aria-label="Timeline">
+
+        <!-- Tweet 1 -->
+        <article class="tweet" aria-label="Tweet by Elon's Replacement">
+          <div class="tweet-avatar-col">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23794bc4'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+                 alt="Elon's Replacement avatar" class="tweet-avatar" />
+          </div>
+          <div class="tweet-body">
+            <div class="tweet-header">
+              <span class="tweet-name">Elon's Replacement <i class="bi bi-patch-check-fill verified"></i></span>
+              <span class="tweet-handle">@notElonAtAll</span>
+              <span class="tweet-dot">·</span>
+              <span class="tweet-time">2h</span>
+              <button class="tweet-more" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <p class="tweet-text">Just shipped a feature that actually works on the first try. Posting this before the universe corrects itself. 🚀</p>
+            <div class="tweet-actions">
+              <button class="action-btn reply-btn" aria-label="Reply">
+                <i class="bi bi-chat"></i><span>47</span>
+              </button>
+              <button class="action-btn retweet-btn" aria-label="Repost">
+                <i class="bi bi-repeat"></i><span>128</span>
+              </button>
+              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
+                <i class="bi bi-heart"></i><span>2.1K</span>
+              </button>
+              <button class="action-btn view-btn" aria-label="Views">
+                <i class="bi bi-bar-chart"></i><span>84K</span>
+              </button>
+              <button class="action-btn bookmark-btn" aria-label="Bookmark">
+                <i class="bi bi-bookmark"></i>
+              </button>
+              <button class="action-btn share-btn" aria-label="Share">
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tweet 2 — with image -->
+        <article class="tweet" aria-label="Tweet by CSS Wizard">
+          <div class="tweet-avatar-col">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23e0245e'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+                 alt="CSS Wizard avatar" class="tweet-avatar" />
+          </div>
+          <div class="tweet-body">
+            <div class="tweet-header">
+              <span class="tweet-name">CSS Wizard</span>
+              <span class="tweet-handle">@csswizardry</span>
+              <span class="tweet-dot">·</span>
+              <span class="tweet-time">5h</span>
+              <button class="tweet-more" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <p class="tweet-text">Unpopular opinion: CSS is the most creative language in web dev. You're literally painting with code. The fact that we call it "styling" undersells it completely. 🎨</p>
+            <div class="tweet-image-wrap">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='260' viewBox='0 0 500 260'%3E%3Crect width='500' height='260' fill='%23f0efff'/%3E%3Crect x='30' y='30' width='130' height='200' rx='12' fill='%236c63ff' opacity='.25'/%3E%3Crect x='185' y='60' width='130' height='140' rx='12' fill='%236c63ff' opacity='.4'/%3E%3Crect x='340' y='20' width='130' height='220' rx='12' fill='%236c63ff' opacity='.6'/%3E%3Ctext x='250' y='248' font-family='monospace' font-size='11' fill='%236c63ff' text-anchor='middle'%3Edisplay: flex; gap: 25px;%3C/text%3E%3C/svg%3E"
+                   alt="CSS flexbox illustration" class="tweet-img" />
+            </div>
+            <div class="tweet-actions">
+              <button class="action-btn reply-btn" aria-label="Reply">
+                <i class="bi bi-chat"></i><span>312</span>
+              </button>
+              <button class="action-btn retweet-btn" aria-label="Repost">
+                <i class="bi bi-repeat"></i><span>1.4K</span>
+              </button>
+              <button class="action-btn like-btn liked" aria-label="Like" aria-pressed="true">
+                <i class="bi bi-heart-fill"></i><span>9.8K</span>
+              </button>
+              <button class="action-btn view-btn" aria-label="Views">
+                <i class="bi bi-bar-chart"></i><span>220K</span>
+              </button>
+              <button class="action-btn bookmark-btn" aria-label="Bookmark">
+                <i class="bi bi-bookmark"></i>
+              </button>
+              <button class="action-btn share-btn" aria-label="Share">
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tweet 3 -->
+        <article class="tweet" aria-label="Tweet by Bootstrap Barry">
+          <div class="tweet-avatar-col">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23ff6b35'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+                 alt="Bootstrap Barry avatar" class="tweet-avatar" />
+          </div>
+          <div class="tweet-body">
+            <div class="tweet-header">
+              <span class="tweet-name">Bootstrap Barry</span>
+              <span class="tweet-handle">@getbootstrap</span>
+              <span class="tweet-dot">·</span>
+              <span class="tweet-time">8h</span>
+              <button class="tweet-more" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <p class="tweet-text">Hot take: spending 2 hours pixel-perfecting a layout is NOT procrastination. It is craftsmanship. My manager doesn't agree. My manager is wrong. 🖥️</p>
+            <div class="tweet-actions">
+              <button class="action-btn reply-btn" aria-label="Reply">
+                <i class="bi bi-chat"></i><span>89</span>
+              </button>
+              <button class="action-btn retweet-btn retweeted" aria-label="Repost" aria-pressed="true">
+                <i class="bi bi-repeat"></i><span>445</span>
+              </button>
+              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
+                <i class="bi bi-heart"></i><span>3.2K</span>
+              </button>
+              <button class="action-btn view-btn" aria-label="Views">
+                <i class="bi bi-bar-chart"></i><span>108K</span>
+              </button>
+              <button class="action-btn bookmark-btn" aria-label="Bookmark">
+                <i class="bi bi-bookmark"></i>
+              </button>
+              <button class="action-btn share-btn" aria-label="Share">
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tweet 4 -->
+        <article class="tweet" aria-label="Tweet by Git Gandalf">
+          <div class="tweet-avatar-col">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2343a047'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+                 alt="Git Gandalf avatar" class="tweet-avatar" />
+          </div>
+          <div class="tweet-body">
+            <div class="tweet-header">
+              <span class="tweet-name">Git Gandalf <i class="bi bi-patch-check-fill verified"></i></span>
+              <span class="tweet-handle">@youShallNotPush</span>
+              <span class="tweet-dot">·</span>
+              <span class="tweet-time">12h</span>
+              <button class="tweet-more" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <p class="tweet-text">me: git commit -m "final fix"<br>also me 10 minutes later: git commit -m "actual final fix"<br>also me 20 minutes later: git commit -m "ok this is really it"<br><br>it was not really it.</p>
+            <div class="tweet-actions">
+              <button class="action-btn reply-btn" aria-label="Reply">
+                <i class="bi bi-chat"></i><span>1.2K</span>
+              </button>
+              <button class="action-btn retweet-btn" aria-label="Repost">
+                <i class="bi bi-repeat"></i><span>8.7K</span>
+              </button>
+              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
+                <i class="bi bi-heart"></i><span>62K</span>
+              </button>
+              <button class="action-btn view-btn" aria-label="Views">
+                <i class="bi bi-bar-chart"></i><span>1.4M</span>
+              </button>
+              <button class="action-btn bookmark-btn" aria-label="Bookmark">
+                <i class="bi bi-bookmark"></i>
+              </button>
+              <button class="action-btn share-btn" aria-label="Share">
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tweet 5 -->
+        <article class="tweet" aria-label="Tweet by Kazadi Mukendi">
+          <div class="tweet-avatar-col">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231d9bf0'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+                 alt="Kazadi Mukendi avatar" class="tweet-avatar" />
+          </div>
+          <div class="tweet-body">
+            <div class="tweet-header">
+              <span class="tweet-name">Kazadi Mukendi</span>
+              <span class="tweet-handle">@kazadi_dev</span>
+              <span class="tweet-dot">·</span>
+              <span class="tweet-time">1d</span>
+              <button class="tweet-more" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <p class="tweet-text">Just deployed my Bootstrap portfolio to Netlify. From mechanical engineer to web developer — the glow-up is real 🚀 <a href="#" class="tweet-link">#100DaysOfCode</a> <a href="#" class="tweet-link">#WebDev</a> <a href="#" class="tweet-link">#Zaio</a></p>
+            <div class="tweet-actions">
+              <button class="action-btn reply-btn" aria-label="Reply">
+                <i class="bi bi-chat"></i><span>14</span>
+              </button>
+              <button class="action-btn retweet-btn" aria-label="Repost">
+                <i class="bi bi-repeat"></i><span>27</span>
+              </button>
+              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
+                <i class="bi bi-heart"></i><span>183</span>
+              </button>
+              <button class="action-btn view-btn" aria-label="Views">
+                <i class="bi bi-bar-chart"></i><span>4.2K</span>
+              </button>
+              <button class="action-btn bookmark-btn" aria-label="Bookmark">
+                <i class="bi bi-bookmark"></i>
+              </button>
+              <button class="action-btn share-btn" aria-label="Share">
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tweet 6 -->
+        <article class="tweet" aria-label="Tweet by Async Annie">
+          <div class="tweet-avatar-col">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23f59e0b'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+                 alt="Async Annie avatar" class="tweet-avatar" />
+          </div>
+          <div class="tweet-body">
+            <div class="tweet-header">
+              <span class="tweet-name">Async Annie</span>
+              <span class="tweet-handle">@asyncAnnie</span>
+              <span class="tweet-dot">·</span>
+              <span class="tweet-time">2d</span>
+              <button class="tweet-more" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <p class="tweet-text">Reminder: being a junior developer does NOT mean you write junior code. Read the docs, ask questions, ship things. The title is temporary — the habits are permanent. 💪</p>
+            <div class="tweet-actions">
+              <button class="action-btn reply-btn" aria-label="Reply">
+                <i class="bi bi-chat"></i><span>204</span>
+              </button>
+              <button class="action-btn retweet-btn" aria-label="Repost">
+                <i class="bi bi-repeat"></i><span>2.8K</span>
+              </button>
+              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
+                <i class="bi bi-heart"></i><span>18.4K</span>
+              </button>
+              <button class="action-btn view-btn" aria-label="Views">
+                <i class="bi bi-bar-chart"></i><span>340K</span>
+              </button>
+              <button class="action-btn bookmark-btn" aria-label="Bookmark">
+                <i class="bi bi-bookmark"></i>
+              </button>
+              <button class="action-btn share-btn" aria-label="Share">
+                <i class="bi bi-upload"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /feed-list -->
+    </main>
+
+    <!-- =====================================================
+         RIGHT SIDEBAR
+    ====================================================== -->
+    <aside class="sidebar-right" aria-label="Supplementary content">
+
+      <!-- Search bar -->
+      <div class="search-wrap">
+        <label for="searchInput" class="visually-hidden">Search FakeTwitter</label>
+        <div class="search-inner">
+          <i class="bi bi-search search-icon" aria-hidden="true"></i>
+          <input type="search" id="searchInput" class="search-input" placeholder="Search" aria-label="Search" />
+        </div>
+      </div>
+
+      <!-- Subscribe box -->
+      <div class="widget subscribe-widget">
+        <h2 class="widget-title">Subscribe to Premium</h2>
+        <p class="widget-body">Subscribe to unlock new features and, if eligible, receive a share of revenue.</p>
+        <button class="btn-subscribe">Subscribe</button>
+      </div>
+
+      <!-- Trending — CUSTOM FEATURE (Cursor-assisted) -->
+      <div class="widget trending-widget">
+        <h2 class="widget-title">Trends for you</h2>
+
+        <div class="trend-item">
+          <div class="trend-meta">Trending in Technology</div>
+          <div class="trend-tag">#100DaysOfCode</div>
+          <div class="trend-count">142K posts</div>
+          <button class="trend-more" aria-label="More options for this trend"><i class="bi bi-three-dots"></i></button>
+        </div>
+        <div class="trend-item">
+          <div class="trend-meta">Trending in South Africa</div>
+          <div class="trend-tag">#Zaio</div>
+          <div class="trend-count">8.4K posts</div>
+          <button class="trend-more" aria-label="More options for this trend"><i class="bi bi-three-dots"></i></button>
+        </div>
+        <div class="trend-item">
+          <div class="trend-meta">Trending in Tech</div>
+          <div class="trend-tag">#WebDev</div>
+          <div class="trend-count">55.2K posts</div>
+          <button class="trend-more" aria-label="More options for this trend"><i class="bi bi-three-dots"></i></button>
+        </div>
+        <div class="trend-item">
+          <div class="trend-meta">Trending worldwide</div>
+          <div class="trend-tag">#Bootstrap5</div>
+          <div class="trend-count">31K posts</div>
+          <button class="trend-more" aria-label="More options for this trend"><i class="bi bi-three-dots"></i></button>
+        </div>
+        <div class="trend-item">
+          <div class="trend-meta">Trending in Programming</div>
+          <div class="trend-tag">#JavaScript</div>
+          <div class="trend-count">209K posts</div>
+          <button class="trend-more" aria-label="More options for this trend"><i class="bi bi-three-dots"></i></button>
+        </div>
+
+        <a href="explore.html" class="widget-show-more">Show more</a>
+      </div>
+
+      <!-- Who to follow -->
+      <div class="widget follow-widget">
+        <h2 class="widget-title">Who to follow</h2>
+
+        <div class="follow-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23e0245e'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+               alt="Dev Hannah avatar" class="follow-avatar" />
+          <div class="follow-info">
+            <span class="follow-name">Dev Hannah <i class="bi bi-patch-check-fill verified"></i></span>
+            <span class="follow-handle">@devhannah</span>
+          </div>
+          <button class="btn-follow">Follow</button>
+        </div>
+
+        <div class="follow-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23794bc4'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+               alt="The React Guy avatar" class="follow-avatar" />
+          <div class="follow-info">
+            <span class="follow-name">The React Guy</span>
+            <span class="follow-handle">@thereactguy</span>
+          </div>
+          <button class="btn-follow">Follow</button>
+        </div>
+
+        <div class="follow-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2343a047'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+               alt="Zaio avatar" class="follow-avatar" />
+          <div class="follow-info">
+            <span class="follow-name">Zaio <i class="bi bi-patch-check-fill verified"></i></span>
+            <span class="follow-handle">@zaio_io</span>
+          </div>
+          <button class="btn-follow">Follow</button>
+        </div>
+
+        <a href="#" class="widget-show-more">Show more</a>
+      </div>
+
+      <p class="sidebar-footer">
+        Terms · Privacy · Cookie Policy · Accessibility · Ads info · More ···
+        <br>© 2026 FakeTwitter HQ
+      </p>
+    </aside>
+
+  </div><!-- /page-wrap -->
+
+  <!-- =====================================================
+       TWEET MODAL — CUSTOM FEATURE (Cursor-assisted)
+       Pure CSS :target trick for open/close, no JS fallback
+  ====================================================== -->
+  <div class="modal-overlay" id="tweetModal" role="dialog" aria-modal="true" aria-label="Compose new post">
+    <div class="modal-box">
+      <div class="modal-header">
+        <a href="#" class="modal-close" aria-label="Close compose dialog">
+          <i class="bi bi-x"></i>
+        </a>
+        <button class="btn-drafts">Drafts</button>
+      </div>
+      <div class="modal-compose">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231d9bf0'/%3E%3Ccircle cx='20' cy='15' r='7' fill='white'/%3E%3Cellipse cx='20' cy='33' rx='11' ry='9' fill='white'/%3E%3C/svg%3E"
+             alt="Your avatar" class="compose-avatar" />
+        <div class="compose-right">
+          <div class="compose-audience">
+            <button class="audience-btn">
+              <i class="bi bi-globe2"></i> Everyone <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+          <textarea class="compose-input modal-input" placeholder="What is happening?!"
+                    aria-label="Compose your post" maxlength="280" rows="4"></textarea>
+          <div class="compose-toolbar">
+            <div class="compose-tools">
+              <button class="tool-btn" aria-label="Add image"><i class="bi bi-image"></i></button>
+              <button class="tool-btn" aria-label="Add GIF"><i class="bi bi-file-gif"></i></button>
+              <button class="tool-btn" aria-label="Add poll"><i class="bi bi-bar-chart"></i></button>
+              <button class="tool-btn" aria-label="Add emoji"><i class="bi bi-emoji-smile"></i></button>
+              <button class="tool-btn" aria-label="Schedule post"><i class="bi bi-calendar3"></i></button>
+            </div>
+            <div class="compose-right-tools">
+              <span class="char-counter">280</span>
+              <div class="compose-divider"></div>
+              <button class="btn-post">Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       MOBILE BOTTOM NAV
+  ====================================================== -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <a href="#" class="mob-nav-item active" aria-label="Home" aria-current="page">
+      <i class="bi bi-house-door-fill"></i>
+    </a>
+    <a href="explore.html" class="mob-nav-item" aria-label="Explore">
+      <i class="bi bi-search"></i>
+    </a>
+    <a href="#" class="mob-nav-item" aria-label="Notifications">
+      <i class="bi bi-bell"></i>
+      <span class="mob-badge">3</span>
+    </a>
+    <a href="#" class="mob-nav-item" aria-label="Messages">
+      <i class="bi bi-envelope"></i>
+    </a>
+    <a href="login.html" class="mob-nav-item" aria-label="Profile">
+      <i class="bi bi-person"></i>
+    </a>
+  </nav>
+
+  <!-- Floating compose button (mobile) -->
+  <a href="#tweetModal" class="fab-compose" aria-label="Compose new post">
+    <i class="bi bi-feather" aria-hidden="true"></i>
+  </a>
+
+  <script>
+    // ---- Dark mode toggle (manual feature — no framework) ----
+    const toggle = document.getElementById('themeToggle');
+    const icon   = document.getElementById('themeIcon');
+    const label  = document.getElementById('themeLabel');
+    const html   = document.documentElement;
+
+    // Persist preference
+    if (localStorage.getItem('theme') === 'dark') {
+      html.setAttribute('data-theme', 'dark');
+      icon.className  = 'bi bi-sun nav-icon';
+      label.textContent = 'Light mode';
+      toggle.setAttribute('aria-pressed', 'true');
+    }
+
+    toggle.addEventListener('click', () => {
+      const dark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', dark ? 'light' : 'dark');
+      icon.className  = dark ? 'bi bi-moon nav-icon' : 'bi bi-sun nav-icon';
+      label.textContent = dark ? 'Dark mode' : 'Light mode';
+      toggle.setAttribute('aria-pressed', String(!dark));
+      localStorage.setItem('theme', dark ? 'light' : 'dark');
+    });
+
+    // ---- Compose: char counter + enable Post button ----
+    const input   = document.getElementById('composeInput');
+    const counter = document.getElementById('charCounter');
+    const postBtn = document.getElementById('postBtn');
+
+    if (input) {
+      input.addEventListener('input', () => {
+        const left = 280 - input.value.length;
+        counter.textContent = left;
+        counter.classList.toggle('counter-warn',  left <= 20);
+        counter.classList.toggle('counter-danger', left <= 0);
+        postBtn.disabled = input.value.trim().length === 0;
+      });
+    }
+
+    // ---- Like toggle ----
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const liked = btn.classList.toggle('liked');
+        btn.setAttribute('aria-pressed', String(liked));
+        const span = btn.querySelector('span');
+        const icon = btn.querySelector('i');
+        icon.className = liked ? 'bi bi-heart-fill' : 'bi bi-heart';
+        // increment / decrement display count
+        const n = parseInt(span.textContent.replace(/[^0-9]/g, '')) || 0;
+        span.textContent = liked ? n + 1 : Math.max(0, n - 1);
+      });
+    });
+
+    // ---- Retweet toggle ----
+    document.querySelectorAll('.retweet-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('retweeted');
+        const rt = btn.classList.contains('retweeted');
+        btn.setAttribute('aria-pressed', String(rt));
+      });
+    });
+
+    // ---- Bookmark toggle ----
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const saved = btn.classList.toggle('bookmarked');
+        const i = btn.querySelector('i');
+        i.className = saved ? 'bi bi-bookmark-fill' : 'bi bi-bookmark';
+      });
+    });
+
+    // ---- Follow button toggle ----
+    document.querySelectorAll('.btn-follow').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const following = btn.classList.toggle('following');
+        btn.textContent = following ? 'Following' : 'Follow';
+      });
+    });
+
+    // ---- Open tweet modal via button (also works via href="#tweetModal") ----
+    const openBtn = document.getElementById('openTweetModal');
+    if (openBtn) {
+      openBtn.addEventListener('click', () => {
+        window.location.hash = '#tweetModal';
+      });
+    }
+
+    // ---- Feed tab switch ----
+    document.querySelectorAll('.feed-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.feed-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-pressed', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-pressed', 'true');
+      });
+    });
+  </script>
+</body>
+</html>
