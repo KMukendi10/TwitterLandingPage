@@ -1,6 +1,6 @@
 :root {
   --bg:            #ffffff;
-  --bg-hover:      #f7f9f9;
+  --bg-hover:      #eeeeee;
   --bg-modal:      rgba(0,0,0,0.5);
   --surface:       #ffffff;
   --border:        #eff3f4;
@@ -46,6 +46,7 @@ body  {
   color: var(--ink);
   min-height: 100dvh;
 }
+
 a     { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 img   { display: block; max-width: 100%; }
@@ -65,7 +66,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   justify-content: center;
   min-height: 100dvh;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* ============================================================
@@ -118,7 +119,9 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 }
 
 .nav-logo:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--bg-hover);
+    border-radius: 50%;
+
 }
 
 .nav-logo img {
@@ -151,7 +154,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 }
 
 .nav-item:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--bg-hover);
 }
 
 .nav-item.active {
@@ -217,7 +220,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 }
 
 .btn-tweet:hover {
-    background: #212425;
+    background: var(--bg-hover);
 }
 
 .btn-tweet-icon {
@@ -279,7 +282,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 }
 
 .profile-mini:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--bg-hover);
 }
 
 .profile-mini-avatar {
@@ -382,6 +385,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   gap: 4px;
   transition: background .15s;
 }
+
 .audience-btn:hover { background: var(--accent-bg); }
 
 .compose-input {
@@ -625,7 +629,8 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   position: absolute;
   left: 14px;
   color: var(--ink-2);
-  font-size: 1rem;
+  height: 20px;
+  width: 20px;
   pointer-events: none;
 }
 .search-input {
