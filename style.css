@@ -1,10 +1,3 @@
-/* ============================================================
-   FakeTwitter — styles.css
-   Design: faithful Twitter/X clone with dark-mode support
-   and two custom features (trending sidebar + tweet modal)
-   ============================================================ */
-
-/* ---- Design tokens ---- */
 :root {
   --bg:            #ffffff;
   --bg-hover:      #f7f9f9;
@@ -71,7 +64,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   display: flex;
   justify-content: center;
   min-height: 100dvh;
-  max-width: 1300px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -87,16 +80,12 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
     height: 100vh;
     position: sticky;
     top: 0;
-
     display: flex;
     flex-direction: column;
-
-    padding: 0.8rem;
-
+    padding-top: 10px;
     overflow-y: auto;
     overflow-x: hidden;
-
-    scrollbar-width: thin; /* Firefox */
+    scrollbar-width: thin;
 }
 
 .sidebar-left::-webkit-scrollbar {
@@ -214,24 +203,66 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 /* Post button */
 
 .btn-tweet {
-    margin-top: 18px;
-    padding: 14px;
+    width: 215px;
+    height: 52px;
+    padding: 10px;
     border: none;
     border-radius: 999px;
-    background: #1d9bf0;
+    background: #0c0c0c;
     color: #fff;
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .btn-tweet:hover {
-    background: #1a8cd8;
+    background: #212425;
 }
 
 .btn-tweet-icon {
     display: none;
+}
+
+/* New */
+.nav-item img,
+.tool-btn img,
+.action-btn img,
+.tweet-more img,
+.audience-btn img,
+.verified,
+.btn-tweet-icon,
+.nav-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.tweet-more img {
+    width: 18px;
+    height: 18px;
+}
+
+.verified {
+    width: 18px;
+    height: 18px;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.action-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.tool-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.audience-btn img {
+    width: 16px;
+    height: 16px;
 }
 
 /* Profile mini */
@@ -457,19 +488,52 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 .tweet-handle, .tweet-time { color: var(--ink-2); font-size: .92rem; }
 .tweet-dot { color: var(--ink-2); font-size: .92rem; }
 
-.tweet-more {
+.tweet-more-wrap {
+  position: relative;
   margin-left: auto;
+}
+
+.tweet-more {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  color: var(--ink-2);
-  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .15s, color .15s;
+  transition: background .15s;
 }
-.tweet-more:hover { background: var(--accent-bg); color: var(--accent); }
+.tweet-more:hover { background: var(--accent-bg); }
+
+/* Drop-UP menu: anchored to bottom of the button, opens upward */
+.tweet-more-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  min-width: 240px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, .25);
+  padding: 6px;
+  z-index: 30;
+}
+.tweet-more-wrap.open .tweet-more-menu { display: block; }
+
+.menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: .93rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background .12s;
+}
+.menu-item:hover { background: var(--bg-hover); }
+.menu-item-danger { color: var(--like); }
+.menu-item-danger:hover { background: var(--like-bg); }
 
 .tweet-text {
   font-size: .97rem;
@@ -909,11 +973,4 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   .btn-tweet-icon { display: none; }
   .btn-tweet { width: 100%; border-radius: var(--radius-pill); }
   .profile-mini-info, .profile-mini-more { display: block; }
-}
-
-/* Print — résumé-ready empty state */
-@media print {
-  .sidebar-left, .sidebar-right, .mobile-topbar,
-  .mobile-bottom-nav, .fab-compose { display: none !important; }
-  .feed-col { border: none; }
 }
