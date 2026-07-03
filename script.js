@@ -1,29 +1,49 @@
-// ---- Dark mode toggle (manual feature — no framework) ----
+// ---- Dark mode toggle ----
 const toggle = document.getElementById('themeToggle');
-const icon   = document.getElementById('themeIcon');
-const label  = document.getElementById('themeLabel');
-const html   = document.documentElement;
+const icon = document.getElementById('themeIcon');
+const label = document.getElementById('themeLabel');
+const html = document.documentElement;
 
-const MOON_ICON = './Assets/icons/moon.svg';
-const SUN_ICON  = './Assets/icons/sun.svg';
+const MOON_ICON = './Assets/Light.png';
+const SUN_ICON = './Assets/Dark.png';
 
-// Persist preference
-if (localStorage.getItem('theme') === 'dark') {
-  html.setAttribute('data-theme', 'dark');
+// Get saved theme (default to light)
+const savedTheme = localStorage.getItem('theme') || 'light';
+
+// Apply theme
+html.setAttribute('data-theme', savedTheme);
+
+if (savedTheme === 'dark') {
   icon.src = SUN_ICON;
   icon.alt = 'Light mode';
   label.textContent = 'Light mode';
   toggle.setAttribute('aria-pressed', 'true');
+} else {
+  icon.src = MOON_ICON;
+  icon.alt = 'Dark mode';
+  label.textContent = 'Dark mode';
+  toggle.setAttribute('aria-pressed', 'false');
 }
 
+// Toggle theme
 toggle.addEventListener('click', () => {
   const dark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', dark ? 'light' : 'dark');
-  icon.src = dark ? MOON_ICON : SUN_ICON;
-  icon.alt = dark ? 'Dark mode' : 'Light mode';
-  label.textContent = dark ? 'Dark mode' : 'Light mode';
-  toggle.setAttribute('aria-pressed', String(!dark));
-  localStorage.setItem('theme', dark ? 'light' : 'dark');
+
+  if (dark) {
+    html.setAttribute('data-theme', 'light');
+    icon.src = MOON_ICON;
+    icon.alt = 'Dark mode';
+    label.textContent = 'Dark mode';
+    toggle.setAttribute('aria-pressed', 'false');
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    icon.src = SUN_ICON;
+    icon.alt = 'Light mode';
+    label.textContent = 'Light mode';
+    toggle.setAttribute('aria-pressed', 'true');
+    localStorage.setItem('theme', 'dark');
+  }
 });
 
 // ---- Compose: char counter + enable Post button ----
@@ -109,16 +129,18 @@ document.querySelectorAll('.feed-tab').forEach(tab => {
 
 // ---- Tweet "more options" drop-up menu ----
 function closeAllMoreMenus() {
-  document.querySelectorAll('.tweet-more-wrap.open').forEach(wrap => {
+  document.querySelectorAll('.more-wrap.open').forEach(wrap => {
     wrap.classList.remove('open');
-    wrap.querySelector('.tweet-more').setAttribute('aria-expanded', 'false');
+    const btn = wrap.querySelector(':scope > button');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
   });
 }
 
-document.querySelectorAll('.tweet-more-wrap').forEach(wrap => {
-  const btn = wrap.querySelector('.tweet-more');
+document.querySelectorAll('.more-wrap').forEach(wrap => {
+  const btn = wrap.querySelector(':scope > button');
+  if (!btn) return;
   btn.addEventListener('click', (e) => {
-    e.stopPropagation(); // don't trigger the tweet-card click behind it
+    e.stopPropagation(); // don't trigger the card/item click behind it
     const wasOpen = wrap.classList.contains('open');
     closeAllMoreMenus();
     if (!wasOpen) {

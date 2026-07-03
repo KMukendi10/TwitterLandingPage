@@ -127,267 +127,139 @@
     </aside>
 
     <!-- =====================================================
-         MAIN FEED
+         MAIN FEED — EXPLORE
     ====================================================== -->
-    <main class="feed-col" aria-label="Timeline feed">
+    <main class="feed-col" aria-label="Explore">
 
-      <!-- Feed header -->
+      <!-- Explore header: search + tabs -->
+      <div class="explore-header">
+        <div class="explore-search-inner">
+          <img src="./Assets/search.svg" alt="Search" class="explore-search-icon" aria-hidden="true">
+          <input type="search" id="exploreSearchInput" class="explore-search-input"
+                 placeholder="Search Kazadi X" aria-label="Search">
+        </div>
+      </div>
       <div class="feed-header">
         <div class="feed-tabs">
           <button class="feed-tab active" aria-pressed="true">For you</button>
-          <button class="feed-tab" aria-pressed="false">Following</button>
+          <button class="feed-tab" aria-pressed="false">Trending</button>
+          <button class="feed-tab" aria-pressed="false">News</button>
+          <button class="feed-tab" aria-pressed="false">Sports</button>
+          <button class="feed-tab" aria-pressed="false">Entertainment</button>
         </div>
       </div>
 
-      <!-- ===== TWEET COMPOSE BOX ===== -->
-      <div class="compose-box" role="form" aria-label="Compose a post">
-        <img src="./Assets/ProfilePic.jpg"
-             alt="Your avatar" class="compose-avatar" />
-        <div class="compose-right">
-          <div class="compose-audience">
-            <button class="audience-btn">
-              <img src="./Assets/everyonecanreply.svg" alt="Everyone"> Everyone <img src="./Assets/drop-down.svg" alt="Drop down">
+      <!-- Today's stories -->
+      <h2 class="explore-section-title">Today's stories</h2>
+
+      <article class="story-card" aria-label="Story: Stoppage-time winner sends fans into raptures">
+        <div class="story-meta">Sports · Trending in Football</div>
+        <div class="story-title">Dramatic stoppage-time winner sends fans into raptures</div>
+        <p class="story-snippet">Reaction, standings, and stats from tonight's biggest match, plus what it means for the rest of the season.</p>
+      </article>
+
+      <article class="story-card" aria-label="Story: New open-source framework tops developer conversation">
+        <div class="story-meta">Technology · Trending</div>
+        <div class="story-title">New open-source framework tops today's developer conversation</div>
+        <p class="story-snippet">Adoption is climbing fast this week as more teams migrate their build pipelines over.</p>      
+      </article>
+
+      <article class="story-card" aria-label="Story: Fans buzzing after last night's season finale">
+        <div class="story-meta">Entertainment · Trending</div>
+        <div class="story-title">Fans are buzzing after last night's season finale</div>
+        <p class="story-snippet">That ending is already the most talked-about TV moment of the year, and the reactions are pouring in.</p>
+      </article>
+
+      <!-- Trending now -->
+      <h2 class="explore-section-title">Trending now</h2>
+      <div class="explore-trend-list">
+
+        <div class="trend-item">
+          <div>
+            <div class="trend-meta">Trending in Technology</div>
+            <div class="trend-tag">#100DaysOfCode</div>
+            <div class="trend-count">142K posts</div>
+          </div>
+          <div class="trend-more-wrap more-wrap">
+            <button class="trend-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
+              <img src="./Assets/more2.svg" alt="More">
             </button>
-          </div>
-          <textarea class="compose-input" id="composeInput" placeholder="What is happening?"
-                    aria-label="Compose your post" maxlength="280" rows="1"></textarea>
-          <div class="compose-toolbar">
-            <div class="compose-tools">
-              <button class="tool-btn" aria-label="Add image"><img src="./Assets/media.svg" alt="Image"></button>
-              <button class="tool-btn" aria-label="Add GIF"><img src="./Assets/gif.svg" alt="GIF"></button>
-              <button class="tool-btn" aria-label="Grok"><img src="./Assets/grok.svg" alt="Grok"></button>
-              <button class="tool-btn" aria-label="Add poll"><img src="./Assets/poll.svg" alt="Poll"></button>
-              <button class="tool-btn" aria-label="Add emoji"><img src="./Assets/emoji.svg" alt="Emoji"></button>
-              <button class="tool-btn" aria-label="Schedule post"><img src="./Assets/schedule.svg" alt="Calendar"></button>
-              <button class="tool-btn" aria-label="Add location"><img src="./Assets/location.svg" alt="Location"></button>
-              <button class="tool-btn" aria-label="Disclosure"><img src="./Assets/flag.svg" alt="Disclosure"></button>
-            </div>
-            <div class="compose-right-tools">
-              <span class="char-counter" id="charCounter">280</span>
-              <div class="compose-divider" aria-hidden="true"></div>
-              <button class="btn-post" id="postBtn" disabled aria-label="Post your tweet">Post</button>
+            <div class="more-menu" role="menu">
+              <button class="menu-item" role="menuitem">Not interested in #100DaysOfCode</button>
+              <button class="menu-item menu-item-danger" role="menuitem">This trend is spam or misleading</button>
             </div>
           </div>
         </div>
+
+        <div class="trend-item">
+          <div>
+            <div class="trend-meta">Sports · Trending</div>
+            <div class="trend-tag">#MatchdayMagic</div>
+            <div class="trend-count">96.7K posts</div>
+          </div>
+          <div class="trend-more-wrap more-wrap">
+            <button class="trend-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
+              <img src="./Assets/more2.svg" alt="More">
+            </button>
+            <div class="more-menu" role="menu">
+              <button class="menu-item" role="menuitem">Not interested in #MatchdayMagic</button>
+              <button class="menu-item menu-item-danger" role="menuitem">This trend is spam or misleading</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="trend-item">
+          <div>
+            <div class="trend-meta">Trending in Tech</div>
+            <div class="trend-tag">#WebDev</div>
+            <div class="trend-count">55.2K posts</div>
+          </div>
+          <div class="trend-more-wrap more-wrap">
+            <button class="trend-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
+              <img src="./Assets/more2.svg" alt="More">
+            </button>
+            <div class="more-menu" role="menu">
+              <button class="menu-item" role="menuitem">Not interested in #WebDev</button>
+              <button class="menu-item menu-item-danger" role="menuitem">This trend is spam or misleading</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="trend-item">
+          <div>
+            <div class="trend-meta">Entertainment · Trending</div>
+            <div class="trend-tag">#SeasonFinale</div>
+            <div class="trend-count">61.3K posts</div>
+          </div>
+          <div class="trend-more-wrap more-wrap">
+            <button class="trend-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
+              <img src="./Assets/more2.svg" alt="More">
+            </button>
+            <div class="more-menu" role="menu">
+              <button class="menu-item" role="menuitem">Not interested in #SeasonFinale</button>
+              <button class="menu-item menu-item-danger" role="menuitem">This trend is spam or misleading</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="trend-item">
+          <div>
+            <div class="trend-meta">Trending in Programming</div>
+            <div class="trend-tag">#JavaScript</div>
+            <div class="trend-count">209K posts</div>
+          </div>
+          <div class="trend-more-wrap more-wrap">
+            <button class="trend-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
+              <img src="./Assets/more2.svg" alt="More">
+            </button>
+            <div class="more-menu" role="menu">
+              <button class="menu-item" role="menuitem">Not interested in #JavaScript</button>
+              <button class="menu-item menu-item-danger" role="menuitem">This trend is spam or misleading</button>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- ===== TWEET FEED ===== -->
-      <div class="feed-list" role="feed" aria-label="Timeline">
-
-        <!-- Tweet 1 — with image -->
-        <article class="tweet" aria-label="Tweet by Match Center">
-          <div class="tweet-avatar-col">
-            <img src="./Assets/BarcaTimes.jpg"
-                 alt="Barca Times avatar" class="tweet-avatar" />
-          </div>
-          <div class="tweet-body">
-            <div class="tweet-header">
-              <span class="tweet-name">BarcaTimes<img src="./Assets/verified.svg" alt="Verified" class="verified"></span>
-              <span class="tweet-handle">@BarcaTimes</span>
-              <span class="tweet-dot">·</span>
-              <span class="tweet-time">1h</span>
-              <div class="tweet-more-wrap more-wrap">
-                <button class="tweet-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
-                  <img src="./Assets/more2.svg" alt="More">
-                </button>
-                <div class="more-menu" role="menu">
-                  <button class="menu-item" role="menuitem">Not interested in this post</button>
-                  <button class="menu-item" role="menuitem">Follow @BarcaTimes</button>
-                  <button class="menu-item" role="menuitem">Mute @BarcaTimes</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Block @BarcaTimes</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Report post</button>
-                </div>
-              </div>
-            </div>
-            <p class="tweet-text">🚨🎙️| Lamine Yamal: “It excites me to see my mother and my brother living the life they’ve always dreamed of.” ❤️</p>
-            <div class="tweet-image-wrap">
-              <img src="./Assets/Lamine.jpg"
-                   alt="Lamine Yamal" class="tweet-img" />
-            </div>
-            <div class="tweet-actions">
-              <button class="action-btn reply-btn" aria-label="Comment">
-                <img src="./Assets/comment.svg" alt="Comment"><span>312</span>
-              </button>
-              <button class="action-btn retweet-btn" aria-label="Repost">
-                <img src="./Assets/retweet.svg" alt="Repost"><span>1.8K</span>
-              </button>
-              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
-                <img src="./Assets/like.svg" alt="Like"><span>14K</span>
-              </button>
-              <button class="action-btn view-btn" aria-label="Views">
-                <img src="./Assets/view.svg" alt="Views"><span>620K</span>
-              </button>
-              <button class="action-btn bookmark-btn" aria-label="Bookmark">
-                <img src="./Assets/bookmarks.svg" alt="Bookmark">
-              </button>
-              <button class="action-btn share-btn" aria-label="Share">
-                <img src="./Assets/share.svg" alt="Share">
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tweet 2 -->
-        <article class="tweet" aria-label="Tweet by Transfer Wire">
-          <div class="tweet-avatar-col">
-            <img src="./Assets/ESPNFC.jpg"
-                 alt="ESPN" class="tweet-avatar" />
-          </div>
-          <div class="tweet-body">
-            <div class="tweet-header">
-              <span class="tweet-name">ESPN FC <img src="./Assets/verified.svg" alt="Verified" class="verified"></span>
-              <span class="tweet-handle">@ESPNFC</span>
-              <span class="tweet-dot">·</span>
-              <span class="tweet-time">3h</span>
-              <div class="tweet-more-wrap more-wrap">
-                <button class="tweet-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
-                  <img src="./Assets/more2.svg" alt="More">
-                </button>
-                <div class="more-menu" role="menu">
-                  <button class="menu-item" role="menuitem">Not interested in this post</button>
-                  <button class="menu-item" role="menuitem">Follow @ESPNFC</button>
-                  <button class="menu-item" role="menuitem">Mute @ESPNFC</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Block @ESPNFC</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Report post</button>
-                </div>
-              </div>
-            </div>
-            <p class="tweet-text">Pau Cubarsí and Lamine Yamal are the first pair of teenagers to start a FIFA World Cup knockout match for a team since Pelé and Altafini for Brazil against Wales in the 1958 quarterfinals.</p>
-            <div class="tweet-image-wrap">
-              <img src="./Assets/Spain.jpg"
-                   alt="Spain" class="tweet-img" />
-            </div>
-            <div class="tweet-actions">
-              <button class="action-btn reply-btn" aria-label="Comment">
-                <img src="./Assets/comment.svg" alt="Comment"><span>890</span>
-              </button>
-              <button class="action-btn retweet-btn" aria-label="Repost">
-                <img src="./Assets/retweet.svg" alt="Repost"><span>4.2K</span>
-              </button>
-              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
-                <img src="./Assets/like.svg" alt="Like"><span>9.6K</span>
-              </button>
-              <button class="action-btn view-btn" aria-label="Views">
-                <img src="./Assets/view.svg" alt="Views"><span>310K</span>
-              </button>
-              <button class="action-btn bookmark-btn" aria-label="Bookmark">
-                <img src="./Assets/bookmarks.svg" alt="Bookmark">
-              </button>
-              <button class="action-btn share-btn" aria-label="Share">
-                <img src="./Assets/share.svg" alt="Share">
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tweet 3 — with image -->
-        <article class="tweet" aria-label="Tweet by BR Football">
-          <div class="tweet-avatar-col">
-            <img src="./Assets/BRFootball.jpg"
-                 alt="B/R Football avatar" class="tweet-avatar" />
-          </div>
-          <div class="tweet-body">
-            <div class="tweet-header">
-              <span class="tweet-name">B/R Football</span>
-              <span class="tweet-handle">@brfootball</span>
-              <span class="tweet-dot">·</span>
-              <span class="tweet-time">6h</span>
-              <div class="tweet-more-wrap more-wrap">
-                <button class="tweet-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
-                  <img src="./Assets/more2.svg" alt="More">
-                </button>
-                <div class="more-menu" role="menu">
-                  <button class="menu-item" role="menuitem">Not interested in this post</button>
-                  <button class="menu-item" role="menuitem">Follow @brfootball</button>
-                  <button class="menu-item" role="menuitem">Mute @brfootball</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Block @brfootball</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Report post</button>
-                </div>
-              </div>
-            </div>
-            <p class="tweet-text">No one was happier for Oyarzabal's fourth goal of the World Cup than Gavi 🤗</p>
-            <div class="tweet-image-wrap">
-              <img src="./Assets/Gavi.jpg"
-                   alt="Gavi" class="tweet-img" />
-            </div>
-            <div class="tweet-actions">
-              <button class="action-btn reply-btn" aria-label="Comment">
-                <img src="./Assets/comment.svg" alt="Comment"><span>44</span>
-              </button>
-              <button class="action-btn retweet-btn" aria-label="Repost">
-                <img src="./Assets/retweet.svg" alt="Repost"><span>210</span>
-              </button>
-              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
-                <img src="./Assets/like.svg" alt="Like"><span>3.1K</span>
-              </button>
-              <button class="action-btn view-btn" aria-label="Views">
-                <img src="./Assets/view.svg" alt="Views"><span>58K</span>
-              </button>
-              <button class="action-btn bookmark-btn" aria-label="Bookmark">
-                <img src="./Assets/bookmarks.svg" alt="Bookmark">
-              </button>
-              <button class="action-btn share-btn" aria-label="Share">
-                <img src="./Assets/share.svg" alt="Share">
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tweet 4 -->
-        <article class="tweet" aria-label="Tweet by Fabrizio Romano">
-          <div class="tweet-avatar-col">
-            <img src="./Assets/Fabrizio.jpg"
-                 alt="Fabrizio Romano avatar" class="tweet-avatar" />
-          </div>
-          <div class="tweet-body">
-            <div class="tweet-header">
-              <span class="tweet-name">Fabrizio Romano <img src="./Assets/verified.svg" alt="Verified" class="verified"></span>
-              <span class="tweet-handle">@FabrizioRomano</span>
-              <span class="tweet-dot">·</span>
-              <span class="tweet-time">10h</span>
-              <div class="tweet-more-wrap more-wrap">
-                <button class="tweet-more" aria-label="More options" aria-haspopup="true" aria-expanded="false">
-                  <img src="./Assets/more2.svg" alt="More">
-                </button>
-                <div class="more-menu" role="menu">
-                  <button class="menu-item" role="menuitem">Not interested in this post</button>
-                  <button class="menu-item" role="menuitem">Follow @FabrizioRomano</button>
-                  <button class="menu-item" role="menuitem">Mute @FabrizioRomano</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Block @FabrizioRomano</button>
-                  <button class="menu-item menu-item-danger" role="menuitem">Report post</button>
-                </div>
-              </div>
-            </div>
-            <p class="tweet-text">💥 Gonçalo Ramos completes the perfect week: joining AC Milan on club record deal and scoring a RO16-worth goal for Portugal.</p>
-            <div class="tweet-image-wrap">
-              <img src="./Assets/Ramos.jpg"
-                   alt="Gonçalo Ramos" class="tweet-img" />
-            </div>
-            <div class="tweet-actions">
-              <button class="action-btn reply-btn" aria-label="Reply">
-                <img src="./Assets/comment.svg" alt="Comment"><span>67</span>
-              </button>
-              <button class="action-btn retweet-btn" aria-label="Repost">
-                <img src="./Assets/retweet.svg" alt="Repost"><span>380</span>
-              </button>
-              <button class="action-btn like-btn" aria-label="Like" aria-pressed="false">
-                <img src="./Assets/like.svg" alt="Like"><span>2.4K</span>
-              </button>
-              <button class="action-btn view-btn" aria-label="Views">
-                <img src="./Assets/view.svg" alt="Views"><span>91K</span>
-              </button>
-              <button class="action-btn bookmark-btn" aria-label="Bookmark">
-                <img src="./Assets/bookmarks.svg" alt="Bookmark">
-              </button>
-              <button class="action-btn share-btn" aria-label="Share">
-                <img src="./Assets/share.svg" alt="Share">
-              </button>
-            </div>
-          </div>
-        </article>
-
-
-      </div><!-- /feed-list -->
     </main>
 
     <!-- =====================================================

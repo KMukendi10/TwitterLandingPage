@@ -1,6 +1,6 @@
 :root {
   --bg:            #ffffff;
-  --bg-hover:      #eeeeee;
+  --bg-hover:      #f1f3f3;
   --bg-modal:      rgba(0,0,0,0.5);
   --surface:       #ffffff;
   --border:        #eff3f4;
@@ -14,11 +14,11 @@
   --like-bg:       #fde8f0;
   --rt:            #00ba7c;
   --rt-bg:         #d9f4ea;
-  --verified:      #1d9bf0;
+  --bg-rgb:        255, 255, 255;
   --sidebar-w:     275px;
   --feed-w:        600px;
   --right-w:       350px;
-  --nav-icon-size: 1.4rem;
+  --nav-icon-size: 26px;
   --radius-pill:   999px;
   --radius-card:   1rem;
   --font:          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -26,6 +26,7 @@
 
 [data-theme="dark"] {
   --bg:        #000000;
+  --bg-rgb:    0, 0, 0;
   --bg-hover:  #080808;
   --surface:   #16181c;
   --border:    #2f3336;
@@ -37,6 +38,35 @@
   --rt-bg:     #00260f;
 }
 
+/* ---- Dark-mode icon fix ----
+   Our icon SVGs are flat black shapes rendered via <img>, so they can't
+   be recolored the normal CSS way (color/fill only work on inline <svg>
+   or CSS masks, not on an <img> tag). Inverting them in dark mode flips
+   black to white so they stay visible, without needing a second set of
+   icon files. Avatars, profile photos, the verified badge, and the
+   Explore story illustrations are intentionally excluded since they're
+   already colored on purpose. */
+[data-theme="dark"] .nav-item img,
+[data-theme="dark"] .nav-logo img,
+[data-theme="dark"] .mobile-logo,
+[data-theme="dark"] .btn-tweet-icon,
+[data-theme="dark"] .nav-icon,
+[data-theme="dark"] .action-btn img,
+[data-theme="dark"] .tool-btn img,
+[data-theme="dark"] .tweet-more img,
+[data-theme="dark"] .trend-more img,
+[data-theme="dark"] .more-btn img,
+[data-theme="dark"] .audience-btn img,
+[data-theme="dark"] .search-icon,
+[data-theme="dark"] .explore-search-icon,
+[data-theme="dark"] .mob-nav-item img,
+[data-theme="dark"] .fab-compose img,
+[data-theme="dark"] .modal-close img,
+[data-theme="dark"] .profile-mini-more,
+[data-theme="dark"] #themeIcon {
+  filter: invert(1) brightness(1.7);
+}
+
 /* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html  { scroll-behavior: smooth; }
@@ -46,7 +76,6 @@ body  {
   color: var(--ink);
   min-height: 100dvh;
 }
-
 a     { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 img   { display: block; max-width: 100%; }
@@ -66,250 +95,260 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   justify-content: center;
   min-height: 100dvh;
   max-width: 100%;
-  margin: 0;
+  margin: 0 auto;
 }
 
 /* ============================================================
    LEFT SIDEBAR
    ============================================================ */
-/* ==========================
-   LEFT SIDEBAR
-========================== */
 
 .sidebar-left {
-    width: 275px;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    padding-top: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: thin;
+  width: var(--sidebar-w);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 .sidebar-left::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .sidebar-left::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .sidebar-left::-webkit-scrollbar-thumb {
-    background: #536471;
-    border-radius: 999px;
+  background: var(--ink-3);
+  border-radius: 999px;
 }
 
 .sidebar-left::-webkit-scrollbar-thumb:hover {
-    background: #71767b;
+  background: var(--ink-2);
 }
 
 /* Logo */
 
 .nav-logo {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: 0.2s;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: 0.2s;
 }
 
 .nav-logo:hover {
-    background: var(--bg-hover);
-    border-radius: 50%;
-
+  background: var(--bg-hover);
 }
 
 .nav-logo img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 /* Navigation */
 
 .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
 }
 
 .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 12px 18px;
-    border-radius: 999px;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .nav-item:hover {
-    background: var(--bg-hover);
+  background: var(--bg-hover);
 }
 
 .nav-item.active {
-    font-weight: 700;
+  font-weight: 700;
+}
+
+.nav-btn {
+  width: 100%;
+  font: inherit;
+  text-align: left;
 }
 
 /* Icon images */
 
 .nav-item img,
 .btn-tweet-icon,
-.profile-mini-more,
-#themeIcon {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-    flex-shrink: 0;
+.nav-icon {
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .nav-label {
-    font-size: 1.25rem;
-    white-space: nowrap;
+  font-size: 1.25rem;
+  white-space: nowrap;
 }
 
 /* Notification badge */
 
 .nav-badge {
-    position: absolute;
-    top: 8px;
-    left: 32px;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 5px;
-    border-radius: 999px;
-    background: #1d9bf0;
-    color: #fff;
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 8px;
+  left: 32px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #1d9bf0;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Dark mode button */
+/* Dark mode button — now lives at the top of the right sidebar.
+   Icon-only: just the moon/sun swapping, no text label. */
 
-.theme-toggle {
-    width: 100%;
-    font: inherit;
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-top: 10px;
+  border-radius: 50%;
+  background: var(--surface);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.theme-toggle-btn:hover { background: var(--bg-hover); border-color: var(--accent-bg); }
+.theme-toggle-btn:active img { transform: scale(.5) rotate(-20deg); }
+.theme-toggle-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform .25s ease;
 }
 
 /* Post button */
 
 .btn-tweet {
-    width: 215px;
-    height: 52px;
-    padding: 10px;
-    border: none;
-    border-radius: 999px;
-    background: #0c0c0c;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s;
+  width: 215px;
+  height: 52px;
+  padding: 10px;
+  border: none;
+  border-radius: 999px;
+  background: #0c0c0c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn-tweet:hover {
-    background: var(--bg-hover);
+  background: #212425;
 }
 
 .btn-tweet-icon {
-    display: none;
+  display: none;
 }
 
-/* New */
-.nav-item img,
+/* Smaller inline icons (toolbar / action / meta icons) */
 .tool-btn img,
 .action-btn img,
 .tweet-more img,
 .audience-btn img,
-.verified,
-.btn-tweet-icon,
-.nav-icon {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
+.verified {
+  object-fit: contain;
+}
+
+.action-btn img,
+.tool-btn img {
+  width: 20px;
+  height: 20px;
 }
 
 .tweet-more img {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .verified {
-    width: 18px;
-    height: 18px;
-    margin-left: 4px;
-    vertical-align: middle;
-}
-
-.action-btn img {
-    width: 20px;
-    height: 20px;
-}
-
-.tool-btn img {
-    width: 20px;
-    height: 20px;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  vertical-align: middle;
 }
 
 .audience-btn img {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 /* Profile mini */
 
 .profile-mini {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background 0.2s;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .profile-mini:hover {
-    background: var(--bg-hover);
+  background: var(--bg-hover);
 }
 
 .profile-mini-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-mini-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-mini-name {
-    font-weight: 700;
-    font-size: 15px;
+  font-weight: 700;
+  font-size: 15px;
 }
 
 .profile-mini-handle {
-    font-size: 14px;
-    color: #71767b;
+  font-size: 14px;
+  color: var(--ink-2);
 }
 
 .profile-mini-more {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 /* ============================================================
@@ -328,12 +367,10 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--bg);
+  background: rgba(var(--bg-rgb), 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(var(--bg-rgb, 255,255,255), 0.85);
 }
-[data-theme="dark"] .feed-header { background: rgba(0,0,0,0.85); }
 
 .feed-tabs {
   display: flex;
@@ -364,6 +401,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
   margin-top: 4px;
 }
@@ -385,7 +423,6 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   gap: 4px;
   transition: background .15s;
 }
-
 .audience-btn:hover { background: var(--accent-bg); }
 
 .compose-input {
@@ -467,6 +504,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
   transition: opacity .15s;
 }
 .tweet-avatar:hover { opacity: .85; }
@@ -492,8 +530,13 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 .tweet-handle, .tweet-time { color: var(--ink-2); font-size: .92rem; }
 .tweet-dot { color: var(--ink-2); font-size: .92rem; }
 
+/* ---- Shared "more options" drop-up menu system ----
+   Used by: tweet-more-wrap (tweets), trend-more-wrap (trending widget),
+   widget-more-wrap (widget "Show more" buttons). Each wrapper carries the
+   generic .more-wrap class; opening one toggles .open on that wrapper. */
+.more-wrap { position: relative; }
+
 .tweet-more-wrap {
-  position: relative;
   margin-left: auto;
 }
 
@@ -509,7 +552,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 .tweet-more:hover { background: var(--accent-bg); }
 
 /* Drop-UP menu: anchored to bottom of the button, opens upward */
-.tweet-more-menu {
+.more-menu {
   display: none;
   position: absolute;
   right: 0;
@@ -522,7 +565,8 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   padding: 6px;
   z-index: 30;
 }
-.tweet-more-wrap.open .tweet-more-menu { display: block; }
+.more-menu.align-left { right: auto; left: 0; }
+.more-wrap.open .more-menu { display: block; }
 
 .menu-item {
   display: block;
@@ -548,8 +592,6 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 
 .tweet-link { color: var(--accent); }
 .tweet-link:hover { text-decoration: underline; }
-
-.verified { color: var(--verified); font-size: .85em; }
 
 /* Tweet image */
 .tweet-image-wrap {
@@ -578,8 +620,6 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   transition: color .15s, background .15s;
   flex-shrink: 0;
 }
-.action-btn i { font-size: 1.1rem; }
-
 /* Reply */
 .reply-btn:hover  { color: var(--accent); background: var(--accent-bg); }
 /* Retweet */
@@ -628,14 +668,16 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 .search-icon {
   position: absolute;
   left: 14px;
-  color: var(--ink-2);
-  height: 20px;
-  width: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
   pointer-events: none;
 }
 .search-input {
   width: 100%;
-  background: var(--surface);
+  background: var(--bg-hover);
   border: 1px solid transparent;
   border-radius: var(--radius-pill);
   padding: 11px 16px 11px 44px;
@@ -644,7 +686,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   outline: none;
   transition: border-color .18s, background .18s;
 }
-[data-theme="light"] .search-input { background: #eff3f4; }
+[data-theme="light"]
 .search-input::placeholder { color: var(--ink-2); }
 .search-input:focus {
   background: var(--bg);
@@ -659,7 +701,6 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   margin-bottom: 16px;
   border: 1px solid var(--border);
 }
-[data-theme="light"] .widget { background: #f7f9f9; }
 
 .widget-title {
   font-size: 1.2rem;
@@ -694,35 +735,52 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   cursor: pointer;
 }
 .trend-item:last-of-type { border-bottom: none; }
-.trend-item:hover .trend-tag { text-decoration: underline; }
+.trend-item:hover .trend-tag {
+  text-decoration: underline; 
+}
 
 .trend-meta  { font-size: .78rem; color: var(--ink-2); }
 .trend-tag   { font-size: .95rem; font-weight: 700; color: var(--ink); margin: 2px 0; }
 .trend-count { font-size: .78rem; color: var(--ink-2); }
 
-.trend-more {
+.trend-more-wrap {
   position: absolute;
   top: 8px;
   right: 0;
+}
+
+.trend-more {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   color: var(--ink-2);
-  font-size: .9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .15s, color .15s;
+  transition: background .15s, color .15s, border-color .15s;
+  margin-right: 10px;
 }
-.trend-more:hover { background: var(--accent-bg); color: var(--accent); }
+.trend-more:hover { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-bg); }
+.trend-more img { width: 18px; height: 18px; object-fit: contain; }
 
-.widget-show-more {
-  display: block;
+.widget-more-wrap {
+  display: inline-block;
   margin-top: 14px;
-  font-size: .9rem;
-  color: var(--accent);
 }
-.widget-show-more:hover { text-decoration: underline; }
+
+.more-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.more-btn:hover { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-bg); }
+.more-btn img { width: 18px; height: 18px; object-fit: contain; }
 
 /* Who to follow */
 .follow-item {
@@ -734,7 +792,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 }
 .follow-item:last-of-type { border-bottom: none; }
 
-.follow-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+.follow-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 
 .follow-info {
   flex: 1;
@@ -816,8 +874,8 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 }
 
 .modal-close {
-  width: 36px;
-  height: 36px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -861,7 +919,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   backdrop-filter: blur(12px);
 }
 .mobile-logo  { width: 32px; }
-.mobile-avatar { width: 34px; height: 34px; border-radius: 50%; }
+.mobile-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
 
 /* ============================================================
    MOBILE BOTTOM NAV
@@ -911,18 +969,17 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
 .fab-compose {
   display: none;
   position: fixed;
-  bottom: 76px;
-  right: 16px;
+  bottom: 90px;
+  right: 45px;
   z-index: 51;
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--accent);
+  background: white;
   color: #fff;
   font-size: 1.4rem;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(29,155,240,.45);
   transition: background .15s, transform .15s;
 }
 .fab-compose:hover { background: var(--accent-hover); transform: scale(1.06); }
@@ -946,6 +1003,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   .nav-label, .profile-mini-info, .profile-mini-more { display: none; }
   .nav-item { justify-content: center; padding: 12px; }
   .nav-badge { top: 4px; left: 26px; }
+  .btn-tweet { background-color: white; position: relative; left: 12px; }
   .btn-tweet-full { display: none; }
   .btn-tweet-icon { display: block; }
   .btn-tweet { width: 52px; height: 52px; padding: 0; border-radius: 50%; margin: 12px auto; }
@@ -968,6 +1026,115 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   .page-wrap { padding-top: 57px; }
   .compose-tools .tool-btn:nth-child(n+5) { display: none; }
 }
+
+/* ============================================================
+   EXPLORE PAGE
+   ============================================================ */
+
+/* Sticky search header at the top of the Explore feed column */
+.explore-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(var(--bg-rgb), 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.explore-search-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.explore-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.explore-search-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  padding: 12px 16px 12px 44px;
+  font-size: 1rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .18s, background .18s;
+}
+[data-theme="light"] .explore-search-input { background: var(--border); }
+.explore-search-input::placeholder { color: var(--ink-2); }
+.explore-search-input:focus {
+  background: var(--bg);
+  border-color: var(--accent);
+}
+
+/* Section headings inside the Explore feed */
+.explore-section-title {
+  padding: 16px 16px 4px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* Story cards ("What's happening" style items with a thumbnail) */
+.story-card {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .15s;
+}
+.story-card:hover { background: var(--bg-hover); }
+
+.story-meta {
+  font-size: .8rem;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+}
+
+.story-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.story-snippet {
+  font-size: .9rem;
+  color: var(--ink-2);
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.story-img-wrap {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.story-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Trending list reused inside the main Explore feed (not the sidebar) */
+.explore-trend-list .trend-item {
+  padding: 12px 16px;
+}
+.explore-trend-list .trend-item:hover { background: var(--bg-hover); }
 
 /* 4K / wide screen */
 @media (min-width: 1600px) {
