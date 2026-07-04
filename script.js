@@ -14,55 +14,53 @@ const savedTheme = localStorage.getItem('theme') || 'light';
 html.setAttribute('data-theme', savedTheme);
 
 if (savedTheme === 'dark') {
-  icon.src = SUN_ICON;
-  icon.alt = 'Light mode';
-  label.textContent = 'Light mode';
-  toggle.setAttribute('aria-pressed', 'true');
+  if (icon) { icon.src = SUN_ICON; icon.alt = 'Light mode'; }
+  if (label) label.textContent = 'Light mode';
+  if (toggle) toggle.setAttribute('aria-pressed', 'true');
 } else {
-  icon.src = MOON_ICON;
-  icon.alt = 'Dark mode';
-  label.textContent = 'Dark mode';
-  toggle.setAttribute('aria-pressed', 'false');
+  if (icon) { icon.src = MOON_ICON; icon.alt = 'Dark mode'; }
+  if (label) label.textContent = 'Dark mode';
+  if (toggle) toggle.setAttribute('aria-pressed', 'false');
 }
 
 // Toggle theme
-toggle.addEventListener('click', () => {
-  const dark = html.getAttribute('data-theme') === 'dark';
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    const dark = html.getAttribute('data-theme') === 'dark';
 
-  if (dark) {
-    html.setAttribute('data-theme', 'light');
-    icon.src = MOON_ICON;
-    icon.alt = 'Dark mode';
-    label.textContent = 'Dark mode';
-    toggle.setAttribute('aria-pressed', 'false');
-    localStorage.setItem('theme', 'light');
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    icon.src = SUN_ICON;
-    icon.alt = 'Light mode';
-    label.textContent = 'Light mode';
-    toggle.setAttribute('aria-pressed', 'true');
-    localStorage.setItem('theme', 'dark');
-  }
-});
+    if (dark) {
+      html.setAttribute('data-theme', 'light');
+      if (icon) { icon.src = MOON_ICON; icon.alt = 'Dark mode'; }
+      if (label) label.textContent = 'Dark mode';
+      toggle.setAttribute('aria-pressed', 'false');
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      if (icon) { icon.src = SUN_ICON; icon.alt = 'Light mode'; }
+      if (label) label.textContent = 'Light mode';
+      toggle.setAttribute('aria-pressed', 'true');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+}
 
 // ---- Compose: char counter + enable Post button ----
-const input = document.getElementById('composeInput');
+const input   = document.getElementById('composeInput');
 const counter = document.getElementById('charCounter');
 const postBtn = document.getElementById('postBtn');
 
-if (input) {
+if (input && counter && postBtn) {
   input.addEventListener('input', () => {
     const left = 280 - input.value.length;
     counter.textContent = left;
-    counter.classList.toggle('counter-warn', left <= 20);
+    counter.classList.toggle('counter-warn',  left <= 20);
     counter.classList.toggle('counter-danger', left <= 0);
-    postBtn.disabled = input.value.trim().length === 0;
+    postBtn.disabled = input.value.trim().length === 0 || left < 0;
   });
 }
 
 // ---- Like toggle ----
-const LIKE_ICON = './Assets/like.svg';
+const LIKE_ICON       = './Assets/like.svg';
 const LIKE_FILLED_ICON = './Assets/like-fill.svg';
 
 function wireLikeButton(btn) {
@@ -72,10 +70,7 @@ function wireLikeButton(btn) {
     btn.setAttribute('aria-pressed', String(liked));
     const span = btn.querySelector('span');
     const iconEl = btn.querySelector('img');
-    
     if (iconEl) iconEl.src = liked ? LIKE_FILLED_ICON : LIKE_ICON;
-    
-    // increment / decrement display count
     if (span) {
       const n = parseInt(span.textContent.replace(/[^0-9]/g, '')) || 0;
       span.textContent = liked ? n + 1 : Math.max(0, n - 1);
@@ -96,7 +91,7 @@ function wireRetweetButton(btn) {
 document.querySelectorAll('.retweet-btn').forEach(wireRetweetButton);
 
 // ---- Bookmark toggle ----
-const BOOKMARK_ICON = './Assets/bookmark.svg';
+const BOOKMARK_ICON        = './Assets/bookmark.svg';
 const BOOKMARK_FILLED_ICON = './Assets/bookmark-fill.svg';
 
 function wireBookmarkButton(btn) {
@@ -117,7 +112,7 @@ document.querySelectorAll('.btn-follow').forEach(btn => {
   });
 });
 
-// ---- Open tweet modal via button (also works via href="#tweetModal") ----
+// ---- Open tweet modal via button ----
 const openBtn = document.getElementById('openTweetModal');
 if (openBtn) {
   openBtn.addEventListener('click', () => {
@@ -146,15 +141,29 @@ function closeAllMoreMenus() {
   });
 }
 
+// Fix position logic for fixed navigation bar popups
+function positionNavMoreMenu(wrap) {
+  const btn = wrap.querySelector(':scope > button');
+  const menu = wrap.querySelector('.more-menu');
+  if (!btn || !menu) return;
+  const rect = btn.getBoundingClientRect();
+  menu.style.position = 'fixed';
+  menu.style.top = 'auto';
+  menu.style.right = 'auto';
+  menu.style.left = rect.left + 'px';
+  menu.style.bottom = (window.innerHeight - rect.top + 6) + 'px';
+}
+
 function wireMoreWrap(wrap) {
-  if (!wrap) return;
   const btn = wrap.querySelector(':scope > button');
   if (!btn) return;
+  const isNavMore = wrap.classList.contains('nav-more-wrap');
   btn.addEventListener('click', (e) => {
-    e.stopPropagation(); // don't trigger the card/item click behind it
+    e.stopPropagation(); 
     const wasOpen = wrap.classList.contains('open');
     closeAllMoreMenus();
     if (!wasOpen) {
+      if (isNavMore) positionNavMoreMenu(wrap);
       wrap.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
     }
@@ -169,9 +178,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ============================================================
-// ---- NEW: Actually posting a tweet ----
+// ---- Actually posting a tweet ----
 // ============================================================
-
 const feedList = document.querySelector('.feed-list');
 
 function escapeHtml(str) {
@@ -222,8 +230,7 @@ function createTweetElement(text) {
           <img src="./Assets/view.svg" alt="Views"><span>1</span>
         </button>
         <button class="action-btn bookmark-btn" aria-label="Bookmark">
-          <img src="./Assets/bookmarks.svg" alt="Bookmark">
-        </button>
+          <img src="${BOOKMARK_ICON}" alt="Bookmark"> </button>
         <button class="action-btn share-btn" aria-label="Share">
           <img src="./Assets/share.svg" alt="Share">
         </button>
@@ -231,7 +238,6 @@ function createTweetElement(text) {
     </div>
   `;
 
-  // Wire up the new tweet's buttons exactly like the original ones
   wireLikeButton(article.querySelector('.like-btn'));
   wireRetweetButton(article.querySelector('.retweet-btn'));
   wireBookmarkButton(article.querySelector('.bookmark-btn'));
@@ -249,18 +255,19 @@ function postTweet(text) {
 
 // ---- Wire up the inline compose box ----
 if (input && postBtn) {
-  postBtn.addEventListener('click', () => {
+  postBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevents layout/form reloads on production
     postTweet(input.value);
     input.value = '';
     input.style.height = '';
-    counter.textContent = '280';
-    counter.classList.remove('counter-warn', 'counter-danger');
+    if (counter) counter.textContent = '280';
+    if (counter) counter.classList.remove('counter-warn', 'counter-danger');
     postBtn.disabled = true;
   });
 }
 
 // ---- Wire up the modal compose box ----
-const modalInput = document.querySelector('#tweetModal .modal-input');
+const modalInput   = document.querySelector('#tweetModal .modal-input');
 const modalCounter = document.querySelector('#tweetModal .char-counter');
 const modalPostBtn = document.querySelector('#tweetModal .btn-post');
 
@@ -271,19 +278,22 @@ if (modalInput && modalCounter) {
     modalCounter.textContent = left;
     modalCounter.classList.toggle('counter-warn', left <= 20);
     modalCounter.classList.toggle('counter-danger', left <= 0);
+    if (modalPostBtn) modalPostBtn.disabled = modalInput.value.trim().length === 0 || left < 0;
   });
 }
 
 if (modalInput && modalPostBtn) {
-  modalPostBtn.addEventListener('click', () => {
+  modalPostBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevents production form reloads
     if (!modalInput.value.trim()) return;
     postTweet(modalInput.value);
     modalInput.value = '';
+    modalPostBtn.disabled = true; // Clear out state
     if (modalCounter) {
       modalCounter.textContent = '280';
       modalCounter.classList.remove('counter-warn', 'counter-danger');
     }
-    // close the modal (it's shown via the :target CSS trick)
+    // Close modal cleanly via history manipulation
     history.replaceState(null, '', window.location.pathname + window.location.search);
   });
 }

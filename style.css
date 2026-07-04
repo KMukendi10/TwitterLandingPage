@@ -1006,8 +1006,14 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   .btn-tweet-full { display: none; }
   .btn-tweet-icon { display: block; }
   .btn-tweet { width: 52px; height: 52px; padding: 0; border-radius: 50%; margin: 12px auto; }
-  .btn-tweet:hover { background: var(--bg-hover);}
+  .btn-tweet:hover { background: var(--bg-hover); }
   .profile-mini { justify-content: center; padding: 12px; }
+
+  /* The "More" drop-up menu is a popup with its own room to breathe —
+     it shouldn't collapse to icon-only just because the sidebar behind
+     it did. Restore full icon + label rows inside it. */
+  .more-menu .nav-label { display: inline-block; }
+  .more-menu .nav-item { justify-content: flex-start; padding: 10px 12px; }
 }
 
 /* Mobile: hide sidebar, show mobile nav */
