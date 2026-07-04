@@ -1006,6 +1006,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   .btn-tweet-full { display: none; }
   .btn-tweet-icon { display: block; }
   .btn-tweet { width: 52px; height: 52px; padding: 0; border-radius: 50%; margin: 12px auto; }
+  .btn-tweet:hover { background: var(--bg-hover);}
   .profile-mini { justify-content: center; padding: 12px; }
 }
 
