@@ -27,7 +27,7 @@
 [data-theme="dark"] {
   --bg:        #000000;
   --bg-rgb:    0, 0, 0;
-  --bg-hover:  #080808;
+  --bg-hover:  #1a1a1a;
   --surface:   #16181c;
   --border:    #2f3336;
   --ink:       #e7e9ea;
@@ -1007,6 +1007,7 @@ textarea { font-family: inherit; resize: none; border: none; outline: none; }
   .btn-tweet-icon { display: block; }
   .btn-tweet { width: 52px; height: 52px; padding: 0; border-radius: 50%; margin: 12px auto; }
   .btn-tweet:hover { background: var(--bg-hover); }
+  [data-theme="dark"] .btn-tweet { background-color: transparent; }
   .profile-mini { justify-content: center; padding: 12px; }
 
   /* The "More" drop-up menu is a popup with its own room to breathe —
